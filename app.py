@@ -8,18 +8,14 @@ import torch.nn.functional as F
 
 app = Flask(__name__)
 
-# -------------------------------
-# 1. Rebuild the model correctly
-# -------------------------------
+# Rebuilding model
 weights = ResNet18_Weights.IMAGENET1K_V1
 model = resnet18(weights=weights)
 
 num_features = model.fc.in_features
 model.fc = nn.Linear(num_features, 1)  # single logit output
 
-# -------------------------------
-# 2. Load your saved state_dict
-# -------------------------------
+# Load state dict
 state_dict = torch.load(
     "brain_tumor_resnet18.pt", 
     map_location="cpu"
@@ -27,9 +23,7 @@ state_dict = torch.load(
 model.load_state_dict(state_dict)
 model.eval()
 
-# -------------------------------
-# 3. Preprocessing (ImageNet)
-# -------------------------------
+# Recreate model architecture
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -39,9 +33,7 @@ transform = transforms.Compose([
     )
 ])
 
-# -------------------------------
-# 4. Prediction function
-# -------------------------------
+# Process uploaded image
 def predict(img):
     img = img.convert("RGB")
     x = transform(img).unsqueeze(0)
@@ -53,9 +45,7 @@ def predict(img):
     return prob
 
 
-# -------------------------------
-# 5. Flask routes
-# -------------------------------
+# Flask routes
 @app.route("/", methods=["GET", "POST"])
 def index():
     result = None
