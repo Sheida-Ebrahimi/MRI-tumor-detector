@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MRI Tumor Detector</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>MRI Tumor Detector</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <br>
+        <button type="submit">Analyze MRI</button>
+    </form>
+
+    {% if result %}
+        <div class="result">{{ result }}</div>
+    {% endif %}
+</div>
+</body>
+</html>
