@@ -5,8 +5,11 @@
     <title>MRI Brain Tumor Detector</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 <div class="page">
+
+    <!-- Header -->
     <header class="header">
         <h1>MRI Brain Tumor Detector</h1>
         <p class="subtitle">
@@ -17,8 +20,11 @@
     </header>
 
     <main class="main">
+
+        <!-- Upload Section -->
         <section class="card">
             <h2>Upload MRI Image</h2>
+
             <form action="/" method="POST" enctype="multipart/form-data" class="upload-form">
                 <label for="file">Choose an MRI image (PNG / JPG):</label>
                 <input type="file" id="file" name="file" accept="image/*" required>
@@ -26,25 +32,27 @@
                 <button type="submit">Analyze Image</button>
             </form>
 
+            <!-- Image Preview -->
             <div class="preview">
                 <p class="preview-title">Selected image:</p>
+
                 <div class="preview-box">
-                    <img
-                        id="preview-img"
-                        {% if image_url %}
-                            src="{{ image_url }}"
-                        {% endif %}
-                        alt="Selected MRI image">
+                    <img id="preview-img"
+                         {% if image_url %}
+                             src="{{ image_url }}"
+                         {% endif %}
+                         alt="Selected MRI image">
+
                     {% if not image_url %}
-                         <span class="placeholder-text">No image selected</span>
+                        <span class="placeholder-text">No image selected</span>
                     {% endif %}
                 </div>
             </div>
-            
         </section>
+
+        <!-- Prediction Result -->
         {% if result %}
-        <section
-            class="card result
+        <section class="card result
             {% if 'TUMOR DETECTED' in result %}
                 result-danger
             {% else %}
@@ -58,6 +66,20 @@
         </section>
         {% endif %}
 
+        {% if heatmap_url %}
+        <section class="card">
+            <h2>Tumor Activation Map (Grad-CAM)</h2>
+            <p class="result-note">
+                This heatmap shows the MRI regions the model focuses on when predicting a tumor.
+            </p>
+
+            <div class="preview-box">
+                <img src="{{ heatmap_url }}" alt="Grad-CAM tumor heatmap">
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Model Info -->
         <section class="card">
             <h2>Model & Dataset Info</h2>
             <ul class="info-list">
@@ -67,12 +89,15 @@
                 <li><strong>Disclaimer:</strong> Demo/educational use only.</li>
             </ul>
         </section>
+
     </main>
 
     <footer class="footer">
         <p>MRI Tumor Detector · Flask + PyTorch</p>
     </footer>
+
 </div>
+
 
 <script>
     const fileInput = document.getElementById('file');
