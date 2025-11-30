@@ -27,13 +27,21 @@
             </form>
 
             <div class="preview">
-                <p class="preview-title">Selected image preview:</p>
+                <p class="preview-title">Selected image:</p>
                 <div class="preview-box">
-                    <img id="preview-img" alt="No image selected">
+                    <img
+                        id="preview-img"
+                        {% if image_url %}
+                            src="{{ image_url }}"
+                        {% endif %}
+                        alt="Selected MRI image">
+                    {% if not image_url %}
+                         <span class="placeholder-text">No image selected</span>
+                    {% endif %}
                 </div>
             </div>
+            
         </section>
-
         {% if result %}
         <section
             class="card result
