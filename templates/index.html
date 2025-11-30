@@ -1,125 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>MRI Brain Tumor Detector</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>MRI Tumor Detector</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    .container { max-width: 400px; margin: auto; text-align: center; }
+    .result { margin-top: 20px; font-size: 22px; font-weight: bold; }
+    button { padding: 10px 15px; margin-top: 10px; font-size: 16px; cursor: pointer; }
+    input[type="file"] { margin-top: 15px; }
+  </style>
 </head>
 
 <body>
-<div class="page">
+  <div class="container">
+    <h2>MRI Tumor Detector</h2>
 
-    <!-- Header -->
-    <header class="header">
-        <h1>MRI Brain Tumor Detector</h1>
-        <p class="subtitle">
-            Upload a brain MRI image to get a tumor prediction.<br>
-            <strong>Important:</strong> This tool is for <strong>educational purposes only</strong> and is
-            <strong>not</strong> a medical diagnostic device.
-        </p>
-    </header>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required>
+      <br>
+      <button type="submit">Analyze MRI</button>
+    </form>
 
-    <main class="main">
-
-        <!-- Upload Section -->
-        <section class="card">
-            <h2>Upload MRI Image</h2>
-
-            <form action="/" method="POST" enctype="multipart/form-data" class="upload-form">
-                <label for="file">Choose an MRI image (PNG / JPG):</label>
-                <input type="file" id="file" name="file" accept="image/*" required>
-
-                <button type="submit">Analyze Image</button>
-            </form>
-
-            <!-- Image Preview -->
-            <div class="preview">
-                <p class="preview-title">Selected image:</p>
-
-                <div class="preview-box">
-                    <img id="preview-img"
-                         {% if image_url %}
-                             src="{{ image_url }}"
-                         {% endif %}
-                         alt="Selected MRI image">
-
-                    {% if not image_url %}
-                        <span class="placeholder-text">No image selected</span>
-                    {% endif %}
-                </div>
-            </div>
-        </section>
-
-        <!-- Prediction Result -->
-        {% if result %}
-        <section class="card result
-            {% if 'TUMOR DETECTED' in result %}
-                result-danger
-            {% else %}
-                result-safe
-            {% endif %}">
-            <h2>Prediction Result</h2>
-            <p class="result-text">{{ result }}</p>
-            <p class="result-note">
-                Confidence is the probability estimated by the model.
-            </p>
-        </section>
-        {% endif %}
-
-        {% if heatmap_url %}
-        <section class="card">
-            <h2>Tumor Activation Map (Grad-CAM)</h2>
-            <p class="result-note">
-                This heatmap shows the MRI regions the model focuses on when predicting a tumor.
-            </p>
-
-            <div class="preview-box">
-                <img src="{{ heatmap_url }}" alt="Grad-CAM tumor heatmap">
-            </div>
-        </section>
-        {% endif %}
-
-        <!-- Model Info -->
-        <section class="card">
-            <h2>Model & Dataset Info</h2>
-            <ul class="info-list">
-                <li><strong>Model:</strong> ResNet-18 (fine-tuned for binary tumor detection).</li>
-                <li><strong>Output:</strong> Single probability value (0–1) using sigmoid.</li>
-                <li><strong>Threshold:</strong> ≥ 0.5 → Tumor detected.</li>
-                <li><strong>Disclaimer:</strong> Demo/educational use only.</li>
-            </ul>
-        </section>
-
-    </main>
-
-    <footer class="footer">
-        <p>MRI Tumor Detector · Flask + PyTorch</p>
-    </footer>
-
-</div>
-
-
-<script>
-    const fileInput = document.getElementById('file');
-    const previewImg = document.getElementById('preview-img');
-
-    fileInput.addEventListener('change', function () {
-        const file = this.files[0];
-
-        if (!file) {
-            previewImg.src = "";
-            previewImg.alt = "No image selected";
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            previewImg.src = e.target.result;
-            previewImg.alt = "Selected MRI image";
-        };
-        reader.readAsDataURL(file);
-    });
-</script>
-
+    {% if result %}
+      <div class="result">{{ result }}</div>
+    {% endif %}
+  </div>
 </body>
 </html>
