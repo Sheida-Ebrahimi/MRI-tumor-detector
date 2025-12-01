@@ -6,7 +6,6 @@ python -m venv .venv
 
 ```
 pip install -r requirements.txt
-pip install flask torch torchvision pillow
 run app.py
 ```
 Go to http://127.0.0.1:5000/ and images for testing can be found under \data\raw\brain-mri
