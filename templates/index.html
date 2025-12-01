@@ -33,6 +33,13 @@
                 </div>
             </div>
         </section>
+                {% if heatmap_url %}
+        <section class="card">
+            <h2>Tumor Heatmap (Grad-CAM)</h2>
+            <img src="{{ heatmap_url }}" class="heatmap-img">
+        </section>
+        {% endif %}
+
 
         {% if result %}
         <section

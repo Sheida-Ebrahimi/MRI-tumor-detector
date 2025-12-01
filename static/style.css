@@ -173,3 +173,10 @@ button:hover {
     font-size: 0.85rem;
     color: #6b7280;
 }
+
+.heatmap-img {
+    width: 50%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+

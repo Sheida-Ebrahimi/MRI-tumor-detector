@@ -6,3 +6,5 @@ numpy
 pillow
 scikit-learn
 tqdm
+flask 
+opencv-python
