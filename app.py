@@ -107,6 +107,7 @@ transform = transforms.Compose([
 def index():
     result = None
     image_url = None
+    heatmap_url = None  
 
     if request.method == "POST":
         file = request.files.get("file")
@@ -121,27 +122,25 @@ def index():
             tumor_prob = predict(img)
 
             if tumor_prob >= 0.5:
-                result = f"TUMOR DETECTED (confidence: {tumor_prob:.2f})"
+                result = f"TUMOR DETECTED (confidence: {tumor_prob * 100:.2f}%)"
             else:
-                result = f"NO TUMOR (confidence: {(1 - tumor_prob):.2f})"
+                result = f"NO TUMOR (confidence: {(1 - tumor_prob) * 100:.2f}%)"
 
-            # create heatmap path
             heatmap_path = os.path.join("static", "outputs", filename)
             os.makedirs("static/outputs", exist_ok=True)
 
-            # generate GradCAM heatmap
             generate_heatmap(img, heatmap_path)
 
             image_url = upload_path
             heatmap_url = heatmap_path
 
-
-        return render_template(
+    return render_template(
         "index.html",
         result=result,
         image_url=image_url,
         heatmap_url=heatmap_url
     )
+
 
 
 
