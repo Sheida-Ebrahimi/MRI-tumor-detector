@@ -29,7 +29,13 @@
             <div class="preview">
                 <p class="preview-title">Selected image preview:</p>
                 <div class="preview-box">
-                    <img id="preview-img" alt="No image selected">
+                    <img 
+                        id="preview-img" 
+                        alt="{% if result %}
+                        Scroll down to see your analysis results. You can upload a new MRI scan to update them.
+                        {% else %}
+                        Upload an MRI image to preview it here.
+                        {% endif %}">
                 </div>
             </div>
         </section>
@@ -89,7 +95,7 @@
         const reader = new FileReader();
         reader.onload = function (e) {
             previewImg.src = e.target.result;
-            previewImg.alt = "Selected MRI image";
+            previewImg.alt = "Uploaded MRI scan";
         };
         reader.readAsDataURL(file);
     });
