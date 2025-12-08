@@ -19,7 +19,7 @@ A simple Flask web application that uses a fine-tuned ResNet-18 model to detect 
 Create and activate a virtual environment:
 ```
 python3 -m venv venv
-source venv\bin\activate
+source venv/bin/activate
 ```
 ## Install dependencies:
 ```
