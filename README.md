@@ -57,4 +57,4 @@ This project is for educational purposes only and is not a medical diagnostic to
 Detailed demo on how to set up and run the app:
 https://www.youtube.com/watch?v=JJOMq4PEvNM
 
-[![Watch the video](https://img.youtube.com/vi/JJOMq4PEvNM/maxresdefault.jpg)](https://www.youtube.com/watch?v=JJOMq4PEvNM)
+[![Watch the video](https://img.youtube.com/vi/q1kjIoUEupo/maxresdefault.jpg)](https://youtu.be/q1kjIoUEupo)
