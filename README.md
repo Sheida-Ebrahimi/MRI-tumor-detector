@@ -54,8 +54,10 @@ The trained model is stored in:
 This project is for educational purposes only and is not a medical diagnostic tool.
 
 ## Demo
-Detailed demo on how to set up and run the app:
+Detailed demo on how to set up and run the app: https://www.youtube.com/watch?v=q1kjIoUEupo
 
-[![Watch the video](https://img.youtube.com/vi/q1kjIoUEupo/maxresdefault.jpg)](https://www.youtube.com/watch?v=q1kjIoUEupo)
+[![Watch the video](https://img.youtube.com/vi/q1kjIoUEupo/maxresdefault.jpg)](https://youtu.be/q1kjIoUEupo)
+
+
 
 
